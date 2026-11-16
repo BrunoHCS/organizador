@@ -11,15 +11,17 @@ import (
 const libraryRootEnv = "BIBLIOTECA_ROOT"
 
 type fileConfig struct {
-	LibraryRoot string `json:"libraryRoot"`
+	LibraryRoot     string   `json:"libraryRoot"`
+	ExcludedFolders []string `json:"excludedFolders"`
 }
 
 // Settings contains absolute paths derived from the location of the executable.
 type Settings struct {
-	AppDir       string
-	LibraryRoot  string
-	DataDir      string
-	DatabasePath string
+	AppDir          string
+	LibraryRoot     string
+	DataDir         string
+	DatabasePath    string
+	ExcludedFolders []string
 }
 
 // Load resolves the app's portable data folder and the configured library root.
@@ -55,7 +57,7 @@ func Load() (Settings, error) {
 	if err != nil {
 		return Settings{}, err
 	}
-	return Settings{AppDir: appDir, LibraryRoot: root, DataDir: dataDir, DatabasePath: filepath.Join(dataDir, "catalogo.db")}, nil
+	return Settings{AppDir: appDir, LibraryRoot: root, DataDir: dataDir, DatabasePath: filepath.Join(dataDir, "catalogo.db"), ExcludedFolders: saved.ExcludedFolders}, nil
 }
 
 func resolveLibraryRoot(appDir, environmentRoot, configuredRoot string) (string, error) {

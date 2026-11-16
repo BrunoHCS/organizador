@@ -16,14 +16,14 @@ As caixas marcam o acompanhamento do trabalho. A sequência respeita as dependê
 
 ## Fase 1 — Catálogo e navegação
 
-- [ ] Implementar classificação de extensões nos tipos photo/video/audio/pdf/ebook/other.
-- [ ] Implementar varredura recursiva com exclusões configuráveis e de sistema.
-- [ ] Tornar a varredura incremental por tamanho e mtime; marcar ausentes como removidos.
-- [ ] Calcular hash parcial para suporte à identificação de duplicados.
-- [ ] Criar pipeline de workers e eventos de progresso via SSE.
-- [ ] Implementar endpoints de scan, eventos, listagem paginada e detalhe de item.
-- [ ] Construir tela de explorar pastas e listagens por tipo.
-- [ ] Confirmar: varrer 50 mil arquivos em minutos e reabrir sem reprocessar tudo.
+- [x] Implementar classificação de extensões nos tipos photo/video/audio/pdf/ebook/other.
+- [x] Implementar varredura recursiva com exclusões configuráveis e de sistema.
+- [x] Tornar a varredura incremental por tamanho e mtime; marcar ausentes como removidos.
+- [x] Calcular hash parcial para suporte à identificação de duplicados.
+- [x] Criar pipeline de workers e eventos de progresso via SSE.
+- [x] Implementar endpoints de scan, eventos, listagem paginada e detalhe de item.
+- [x] Construir tela de explorar pastas e listagens por tipo.
+- [x] Confirmar: varrer 50 mil arquivos em minutos e reabrir sem reprocessar tudo.
 
 ## Fase 2 — Fotos e PDFs
 
