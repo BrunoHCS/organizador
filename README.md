@@ -10,9 +10,7 @@ Este repositório centraliza a documentação e o planejamento de desenvolviment
 
 ## Status do projeto
 
-Em desenvolvimento.
-
-O escopo atual está alinhado com a especificação técnica do produto e com a estratégia da implementação em fases, priorizando um MVP funcional nas fases iniciais.
+Fase 0 — Fundação implementada. A CI compila o frontend, executa os testes Go e gera o executável Windows. As funcionalidades das fases seguintes continuam planejadas.
 
 ## Objetivos principais
 
@@ -74,27 +72,18 @@ O escopo atual está alinhado com a especificação técnica do produto e com a 
 
 ```text
 organizador/
-├── cmd/
-│   └── app/
-├── internal/
-│   ├── api/
-│   ├── config/
-│   ├── courses/
-│   ├── db/
-│   ├── media/
-│   ├── reader/
-│   ├── scanner/
-│   ├── search/
-│   └── security/
-├── web/
-│   └── src/
-├── assets/
-├── scripts/
+├── src/
+│   ├── cmd/app/       # inicialização Go e frontend embutido
+│   ├── internal/
+│   │   ├── api/       # home SPA e /healthz
+│   │   ├── config/    # caminhos portáteis e raiz da biblioteca
+│   │   └── db/        # SQLite e migrations
+│   └── web/           # React, TypeScript e Vite
+├── .github/workflows/ # CI de build e testes
 ├── specs/
 ├── LICENSE
 ├── Plano de Implementação.md
 ├── README.md
-└── src/
 ```
 
 ## Requisitos
@@ -110,15 +99,23 @@ organizador/
 
 ## Como executar
 
-A execução ainda será definida conforme a implementação evoluir. O objetivo final é um executável portátil para Windows, com dados do aplicativo armazenados ao lado do binário e a biblioteca do usuário escolhida pela pessoa que usa o sistema.
+Requisitos para compilar: Go 1.22+ e Node.js 20+. A partir da raiz do repositório, instale as dependências do frontend e gere o bundle embutido; em seguida, compile a aplicação:
+
+```powershell
+cd src/web
+npm install
+npm run build
+cd ..
+go test ./...
+go build -o .\biblioteca.exe .\cmd\app
+```
+
+Em `src`, abra `biblioteca.exe`. O servidor escuta somente em `127.0.0.1`, escolhe uma porta livre e abre a home no navegador padrão. O catálogo é criado em `src/data/catalogo.db` ao lado do executável. Na Fase 0, a raiz inicial da biblioteca é a pasta do aplicativo; ela pode ser definida pelo valor `libraryRoot` em `src/data/config.json` ou pela variável de ambiente `BIBLIOTECA_ROOT` (que tem precedência). O diretório de dados continua ao lado do executável.
 
 ### Fluxo esperado
-1. Baixar ou compilar o executável
-2. Abrir a aplicação no Windows
-3. Escolher a raiz da biblioteca a catalogar
-4. Iniciar a varredura inicial
-5. Navegar por fotos, vídeos, músicas, PDFs, EPUBs e cursos
-6. Continuar estudos e progresso já salvos automaticamente
+1. Compilar e abrir a aplicação
+2. Definir a raiz da biblioteca em `data/config.json` ou `BIBLIOTECA_ROOT`
+3. Aguardar as próximas fases para indexar e navegar pelos arquivos
 
 ## Roadmap
 

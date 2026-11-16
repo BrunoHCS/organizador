@@ -4,15 +4,15 @@ As caixas marcam o acompanhamento do trabalho. A sequência respeita as dependê
 
 ## Fase 0 — Fundação
 
-- [ ] Criar repositório e configurar CI para build e testes.
-- [ ] Criar esqueleto do backend Go e frontend Vite/React/TypeScript.
-- [ ] Configurar build de produção e embutir frontend com `go:embed`.
-- [ ] Implementar resolução da raiz da biblioteca escolhida e usar `data/` ao lado do executável para os dados do aplicativo.
-- [ ] Configurar SQLite via `modernc.org/sqlite`, migrations iniciais, `journal_mode=DELETE` e `synchronous=FULL`.
-- [ ] Adicionar configuração e logs estruturados com `slog`.
-- [ ] Implementar `/healthz` e inicialização do app abrindo a home local.
-- [ ] Criar tokens visuais, tipografia e componentes base (Card, Carousel, Button, Modal).
-- [ ] Confirmar: `.exe` abre a página inicial e cria o banco no SSD.
+- [x] Criar repositório e configurar CI para build e testes.
+- [x] Criar esqueleto do backend Go e frontend Vite/React/TypeScript.
+- [x] Configurar build de produção e embutir frontend com `go:embed`.
+- [x] Implementar resolução da raiz da biblioteca escolhida e usar `data/` ao lado do executável para os dados do aplicativo.
+- [x] Configurar SQLite via `modernc.org/sqlite`, migrations iniciais, `journal_mode=DELETE` e `synchronous=FULL`.
+- [x] Adicionar configuração e logs estruturados com `slog`.
+- [x] Implementar `/healthz` e inicialização do app abrindo a home local.
+- [x] Criar tokens visuais, tipografia e componentes base (Card, Carousel, Button, Modal).
+- [x] Confirmar: `.exe` abre a página inicial e cria o banco no SSD.
 
 ## Fase 1 — Catálogo e navegação
 
