@@ -10,7 +10,7 @@ Este repositório centraliza a documentação e o planejamento de desenvolviment
 
 ## Status do projeto
 
-Fase 0 — Fundação implementada. A CI compila o frontend, executa os testes Go e gera o executável Windows. As funcionalidades das fases seguintes continuam planejadas.
+Fases 0 e 1 — Fundação, catálogo e navegação implementados. O scanner classifica e indexa arquivos localmente, faz atualização incremental, envia progresso por SSE e oferece exploração por pasta e tipo. Os testes Go e o aceite com 50 mil arquivos foram executados; o scan inicial levou 12,6 s neste ambiente e a reabertura reindexou zero arquivos inalterados. As demais fases continuam planejadas.
 
 ## Objetivos principais
 
@@ -110,12 +110,15 @@ go test ./...
 go build -o .\biblioteca.exe .\cmd\app
 ```
 
-Em `src`, abra `biblioteca.exe`. O servidor escuta somente em `127.0.0.1`, escolhe uma porta livre e abre a home no navegador padrão. O catálogo é criado em `src/data/catalogo.db` ao lado do executável. Na Fase 0, a raiz inicial da biblioteca é a pasta do aplicativo; ela pode ser definida pelo valor `libraryRoot` em `src/data/config.json` ou pela variável de ambiente `BIBLIOTECA_ROOT` (que tem precedência). O diretório de dados continua ao lado do executável.
+Em `src`, abra `biblioteca.exe`. O servidor escuta somente em `127.0.0.1`, escolhe uma porta livre e abre a home no navegador padrão. O catálogo é criado em `src/data/catalogo.db` ao lado do executável. A raiz inicial da biblioteca é a pasta do aplicativo; ela pode ser definida pelo valor `libraryRoot` em `src/data/config.json` ou pela variável de ambiente `BIBLIOTECA_ROOT` (que tem precedência). O mesmo arquivo aceita `excludedFolders`, uma lista de pastas relativas à raiz da biblioteca (ou caminhos absolutos) para ignorar. `$RECYCLE.BIN`, `System Volume Information` e a pasta do aplicativo são ignoradas automaticamente quando estiverem dentro da raiz escolhida.
 
 ### Fluxo esperado
 1. Compilar e abrir a aplicação
 2. Definir a raiz da biblioteca em `data/config.json` ou `BIBLIOTECA_ROOT`
-3. Aguardar as próximas fases para indexar e navegar pelos arquivos
+3. Abrir “Explorar biblioteca” e iniciar “Varrer biblioteca”
+4. Acompanhar o progresso e navegar pelos arquivos por pasta ou tipo
+
+O scanner usa workers limitados e hash parcial (tamanho, primeiros e últimos 64 KiB). Em uma nova varredura, arquivos com mesmo tamanho e data de modificação não são reprocessados. Itens ausentes só são marcados como removidos após uma varredura completa sem erros. Os endpoints locais são `POST /api/scan`, `GET /api/scan/events` (SSE), `GET /api/items?type=&folder=&page=&pageSize=`, `GET /api/items/{id}` e `GET /api/folders`.
 
 ## Roadmap
 

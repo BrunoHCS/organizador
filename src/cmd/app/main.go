@@ -19,6 +19,7 @@ import (
 	"biblioteca-ssd/internal/api"
 	"biblioteca-ssd/internal/config"
 	"biblioteca-ssd/internal/db"
+	"biblioteca-ssd/internal/scanner"
 )
 
 // Production builds place the Vite output in this directory.
@@ -62,7 +63,7 @@ func run() error {
 		return err
 	}
 	server := &http.Server{
-		Handler:           api.NewHandler(static, token),
+		Handler:           api.NewCatalogHandler(static, token, catalog, scanner.Options{Root: settings.LibraryRoot, AppDir: settings.AppDir, Excluded: settings.ExcludedFolders}),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
